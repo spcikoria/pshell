@@ -1,0 +1,38 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // Windows ST-LINK_gdbserver.exe for "[WSL, ST-Link] ..." in launch.json.
+            // Port 61234 must match its gdbTarget, and stay out of 50000-50059 (reserved by Windows here).
+            // --temp-path: the default %TEMP% is under the user profile, whose name the server can't handle.
+            "label": "ST-LINK gdbserver (Windows)",
+            "type": "process",
+            "command": "${workspaceFolder}/tools/stlink-gdbserver-win.sh",
+            "args": ["-p", "61234", "--swd", "--halt", "-m", "1", "-k",
+                     "--temp-path", "${workspaceFolder}/build"],
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "stlink-gdbserver",
+                "pattern": { "regexp": "^error: (.*)$", "message": 1 },
+                "background": {
+                    "activatesOnStart": true,
+                    "beginsPattern": "^Windows: ",
+                    // Ready or failed: either way the debug session goes on instead of waiting forever
+                    "endsPattern": "Waiting for debugger connection|^error: |Exit\\."
+                }
+            },
+            "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+        },
+        {
+            // Runs after the debug session ended, so anything left is a leftover:
+            // - gdb-multiarch: when the debug adapter exits first, gdb is orphaned with a closed stdin and can
+            //   spin at 100% CPU and grow in memory instead of exiting. It ignores SIGTERM in that state, so
+            //   SIGKILL. Note: kills every gdb-multiarch of the user.
+            // - The server exits by itself when gdb disconnects, this catches the case where gdb never connected
+            "label": "Stop ST-LINK gdbserver (Windows)",
+            "type": "shell",
+            "command": "pkill -KILL -x gdb-multiarch;taskkill.exe /F /IM ST-LINK_gdbserver.exe >/dev/null 2>&1; true",
+            "presentation": { "reveal": "never" }
+        }
+    ]
+}

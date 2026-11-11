@@ -1,0 +1,60 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "[Windows, ST-link] Nucleo H503",
+            "type": "cortex-debug",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "servertype": "stlink",
+            "serverpath": "${env:stlink_gdbserver}",
+            "serverArgs": [
+                "-m", "1",
+                "-k",
+                "--temp-path", "${workspaceFolder}/build"
+            ],
+            "interface": "swd",
+            "device": "STM32H503RB",
+            "executable": "./build/debug/app/application.elf",
+            "svdFile": "./svd/STM32H503.svd",
+            "runToEntryPoint": "main"
+        },
+        {
+            // VS Code in WSL: Linux gdb-multiarch, Windows ST-LINK_gdbserver.exe started by the
+            // preLaunchTask (.vscode/tasks.json), reached over localhost (networkingMode=mirrored).
+            // The ST-LINK stays on Windows: don't attach it with tools/stlink-wsl.sh.
+            // Not servertype "stlink": Cortex-Debug would pick port 50000+, which Windows reserves here.
+            "name": "[WSL, ST-Link] Nucleo H503",
+            "type": "cortex-debug",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "servertype": "external",
+            "gdbTarget": "localhost:61234",
+            "preLaunchTask": "ST-LINK gdbserver (Windows)",
+            "postDebugTask": "Stop ST-LINK gdbserver (Windows)",
+            // "external" sends OpenOCD's "monitor reset halt", ST-LINK_gdbserver only knows "monitor reset"
+            "overrideLaunchCommands": ["monitor reset", "load", "monitor reset"],
+            "overrideRestartCommands": ["monitor reset"],
+            "overrideResetCommands": ["monitor reset"],
+            "gdbPath": "gdb-multiarch",
+            // Linux objdump: a Windows .exe can't open the /mnt/c/... ELF path (sudo apt install binutils-arm-none-eabi)
+            "objdumpPath": "/usr/bin/arm-none-eabi-objdump",
+            "device": "STM32H503RB",
+            "executable": "./build/debug/app/application.elf",
+            "svdFile": "./svd/STM32H503.svd",
+            "runToEntryPoint": "main"
+        },
+        {
+            "name": "[Windows, JLink] Nucleo H503",
+            "type": "cortex-debug",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "servertype": "jlink",
+            "serverpath": "${env:jlink_gdbserver}",
+            "device": "STM32H503RB",
+            "executable": "./build/debug/app/application.elf",
+            "svdFile": "./svd/STM32H503.svd",
+            "runToEntryPoint": "main"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+# Board selection: the name of a folder in bsp/
+# A new board: add its folder name to the choices, see "Porting to another board" in README.md
+option('board',
+  type: 'combo',
+  choices: ['nucleo_h503rb'],
+  value: 'nucleo_h503rb',
+  description: 'Board support package, a folder in bsp/',
+)

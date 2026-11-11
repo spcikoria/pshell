@@ -1,0 +1,9 @@
+{
+    // C formatting: Shift+Alt+F (file), Ctrl+K Ctrl+F (selection), with the clang-format of the C/C++ extension
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "C_Cpp.formatting": "clangFormat",
+    // The style is here instead of a .clang-format file, options: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, IndentWidth: 4, UseTab: Never, ColumnLimit: 120, BreakBeforeBraces: Allman, IndentCaseLabels: false, PointerAlignment: Right, AllowShortFunctionsOnASingleLine: None, AllowShortIfStatementsOnASingleLine: Never, AllowShortLoopsOnASingleLine: false, AlignConsecutiveMacros: true, AlignTrailingComments: true, SortIncludes: false }"
+}
