@@ -13,6 +13,16 @@ See [Porting to another board](#porting-to-another-board) for a new one.
 * **Drivers:** CMSIS and STM32 LL, only in `bsp/<board>`
 * **Build system:** Meson / Ninja
 
+## Screenshots
+
+![Start-up logo](images/logo.png)
+
+![TUI menu demo](images/menu.png)
+
+![Raycaster](images/doom1.png)
+
+![Raycaster](images/doom2.png)
+
 ## Shell features
 
 * **Transport independent:** the shell core (`platform/drivers/Src/pshell.c`) only works with stream buffers.
@@ -73,6 +83,7 @@ The terminal must support UTF-8 and ANSI escape sequences (Windows Terminal, PuT
 | `cross/`    | Meson cross file for `arm-none-eabi`                           |
 | `svd/`      | SVD files for the debugger                                     |
 | `tools/`    | ST-LINK helper scripts for WSL                                 |
+| `images/`   | Screenshots for this README                                    |
 | `.vscode/`  | Debug configurations (Cortex-Debug) and tasks                  |
 
 ## Getting started
