@@ -16,6 +16,7 @@ application_sources = files(
   'Src/sokoban.c',
   'Src/sokoban_levels.c',
   'Src/syscalls.c',
+  'Src/trex.c',
 )
 
 # Linker script of the board's MCU, a new MCU needs linker/<mcu>_app.ld

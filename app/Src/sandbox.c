@@ -8,6 +8,7 @@
 #include "raycast.h"
 #include "sokoban.h"
 #include "task.h"
+#include "trex.h"
 #include "tui.h"
 #include <stdio.h>
 
@@ -297,5 +298,8 @@ void SANDBOX_Init(void)
 #endif
 #if PSHELL_APP_RAYCAST
     (void)PSH_RegisterApp("raycast", RAY_Main);
+#endif
+#if PSHELL_APP_TREX
+    (void)PSH_RegisterApp("trex", TREX_Main);
 #endif
 }

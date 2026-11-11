@@ -88,3 +88,7 @@
 #ifndef PSHELL_APP_RAYCAST
 #define PSHELL_APP_RAYCAST (1)
 #endif
+
+#ifndef PSHELL_APP_TREX
+#define PSHELL_APP_TREX (1)
+#endif
